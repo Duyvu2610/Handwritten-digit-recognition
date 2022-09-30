@@ -1,8 +1,7 @@
 
 import streamlit as st
 from streamlit_drawable_canvas import st_canvas
-import streamlit as st
-from streamlit_drawable_canvas import st_canvas
+
 from tensorflow import keras
 import cv2
 import numpy as np
@@ -31,7 +30,7 @@ if canvas_result.image_data is not None:
         img, (SIZE, SIZE), interpolation=cv2.INTER_NEAREST)
     with col1:
         st.write('Input Image')
-        st.image(img_rescaling)
+
 predict = st.button('Predict')
 
 if predict:
