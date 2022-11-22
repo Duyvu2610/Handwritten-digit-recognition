@@ -6,7 +6,7 @@ from tensorflow import keras
 import cv2
 import numpy as np
 
-model = keras.models.load_model('D:\Work space\\ai\mnist2.hdf5')
+model = keras.models.load_model('D:\Work space\\ai\mnist3.hdf5')
 st.title("MNIST Digit Recognizer: DuyVudz")
 
 
@@ -27,10 +27,13 @@ if canvas_result.image_data is not None:
     img = cv2.resize(canvas_result.image_data, (28, 28))
     img_rescaling = cv2.resize(
         img, (SIZE, SIZE), interpolation=cv2.INTER_NEAREST)
+    uploaded_file = st.file_uploader("Choose a file")
 
 
 predict = st.button('Predict')
-
+if uploaded_file is not None:
+    bytes_data = uploaded_file.getvalue()
+    st.write(bytes_data)
 if predict:
     test_x = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     st.image(test_x)
