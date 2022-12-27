@@ -1,13 +1,11 @@
-
 import streamlit as st
 from streamlit_drawable_canvas import st_canvas
-import matplotlib.pyplot as plt
 from tensorflow import keras
 import cv2
 import numpy as np
 
 model = keras.models.load_model('D:\Work space\\ai\mnist3.hdf5')
-st.title("MNIST Digit Recognizer: DuyVudz")
+st.title("Nhận dạng chữ số viết tay")
 
 
 # Create a canvas component
@@ -21,22 +19,11 @@ canvas_result = st_canvas(
     key="canvas",
 )
 
-SIZE = 196
-# Do something interesting with the image data and paths
 if canvas_result.image_data is not None:
     img = cv2.resize(canvas_result.image_data, (28, 28))
-    img_rescaling = cv2.resize(
-        img, (SIZE, SIZE), interpolation=cv2.INTER_NEAREST)
-    uploaded_file = st.file_uploader("Choose a file")
-
 
 predict = st.button('Predict')
-if uploaded_file is not None:
-    bytes_data = uploaded_file.getvalue()
-    st.write(bytes_data)
 if predict:
     test_x = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    st.image(test_x)
     pred = model.predict(test_x.reshape(1, 28, 28, 1))
     st.write(f'result: {np.argmax(pred[0])}')
-    st.bar_chart(pred[0])
